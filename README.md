@@ -118,7 +118,7 @@ For any questions or inquiries, please reach out to us:
 
 - **Yunlong Lin**: linyl@stu.xmu.edu.cn
 - **Zixu Lin**: a860620266@gmail.com
-- **Kunjie Lin**: linkunjie@stu.xmu.edu.cn 
+- **Kunjie Lin**: linkunjie@stu.xmu.edu.cn  
 
 ---
 
