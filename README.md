@@ -35,6 +35,18 @@
 
 ---
 
+## ⚠️ Security Warning
+
+**IMPORTANT: This is the ONLY official JarvisArt repository!**
+
+We have identified **fake repositories** claiming to be JarvisArt that may contain **malware, viruses, or malicious code**. Please be extremely cautious and only use this official repository.
+
+**Known fake/malicious repositories:**
+- ❌ `https://github.com/joelp0/JarvisArt` - **FAKE & POTENTIALLY DANGEROUS**
+- ❌ Any other repositories not from our official organization
+
+---
+
 ## 📮 Updates
 
 - **[Coming Soon]** 🚀 Gradio demo and Hugging Face demo will be released first.
