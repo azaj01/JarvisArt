@@ -6,6 +6,9 @@
   <a href="https://arxiv.org/pdf/2506.17612"><img src="https://img.shields.io/badge/arXiv-2506.17612-b31b1b.svg" alt="Paper"></a>
   <a href="https://huggingface.co/papers/2506.17612"><img src="https://img.shields.io/badge/🤗-Daily%20Papers-ffbd00.svg" alt="Huggingface Daily Papers"></a>
   <a href="https://jarvisart.vercel.app/"><img src="https://img.shields.io/badge/Project%20Page-Visit-blue" alt="Project Page"></a>
+  <a href="https://www.youtube.com/watch?v=Ol28DQj8wV8"><img src="https://img.shields.io/badge/YouTube-Watch-red" alt="YouTube"></a>
+  <a href="https://www.bilibili.com/video/BV1Sd3nzREvP/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=3939804dc1d27869e194605ae46329ec"><img src="https://img.shields.io/badge/BiliBili-哔哩哔哩-FF69B4" alt="BiliBili"></a>
+  <a href="https://x.com/ling_yunlong/status/1940010865627103419"><img src="https://img.shields.io/twitter/follow/LYL1015?style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/LYL1015/JarvisArt"><img src="https://img.shields.io/github/stars/LYL1015/JarvisArt?style=social" alt="GitHub Stars"></a>
   </div>
 
@@ -131,6 +134,19 @@ For any questions or inquiries, please reach out to us:
 - **Yunlong Lin**: linyl@stu.xmu.edu.cn
 - **Zixu Lin**: a860620266@gmail.com
 - **Kunjie Lin**: linkunjie@stu.xmu.edu.cn  
+
+---
+
+
+## 🌤️ Discussion Group
+
+If you have any questions during the trial, running or deployment, feel free to join our WeChat group discussion! If you have any ideas or suggestions for the project, you are also welcome to join our WeChat group discussion!
+
+<div align="center">
+  <img src="assets/wechat_group.jpg" alt="WeChat Group" width="300px">
+  <p>Scan QR code to join WeChat group discussion</p>
+</div>
+
 
 ---
 
