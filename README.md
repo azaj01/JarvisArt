@@ -52,12 +52,25 @@ We have identified **fake repositories** claiming to be JarvisArt that may conta
 
 ## 📮 Updates
 
-- **[Coming Soon]** 🚀 Gradio demo and Hugging Face demo will be released first.
-- **[Coming Soon]** 🎯 Training and inference code will be released.
+<!-- - **[Coming Soon]** 🚀 Gradio demo and Hugging Face demo will be released first. -->
+<!-- - **[2025.07]** 🚀 Gradio demo and Hugging Face preview model weight has released. -->
+- **[2025.07]** 🚀 [Gradio demo](docs/README_Demo.md) and [JarvisArt preview model weights](https://huggingface.co/JarvisArt/JarvisArt-Preview) have been released.
 - **[2025.06]** 📄 Paper is now available on arXiv.
 - **[2025.06]** 🌐 Project page is live.
+- **[Coming Soon]** 🎯 Training and inference code will be released.
 
 ---
+
+
+## 🧭 Navigation
+
+- [Overview](#-overview)
+- [Demo Videos](#-demo-videos)
+- [Checklist](#-checklist)
+- [Getting Started](#-getting-started)
+- [Discussion Group](#️-discussion-group)
+---
+
 
 ## 📝 Overview
 
@@ -106,8 +119,8 @@ Local Retouching Case
 
 - [x] Create repo and project page
 - [x] Release preview inference code and gradio demo
+- [ ] Release Online demo
 - [ ] Release training code 
-- [ ] Release Hugging Face demo
 
 ---
 

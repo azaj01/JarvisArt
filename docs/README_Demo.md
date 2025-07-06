@@ -22,7 +22,7 @@ cd ../..
 
 To run the Gradio demo, you need to download the preview weights from Hugging Face and place them in the correct location:
 
-1. Download the JarvisArt preview weights from [Hugging Face repository](https://huggingface.co/LYL1015/JarvisArt/tree/main/pretrained/preview)
+1. Download the JarvisArt preview weights from [Hugging Face repository](https://huggingface.co/JarvisArt/JarvisArt-Preview)
 2. Create the weights directory (if it doesn't exist):
    ```bash
    cd JarvisArt/
