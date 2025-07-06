@@ -105,11 +105,15 @@ Local Retouching Case
 ## 🎪 Checklist
 
 - [x] Create repo and project page
-- [ ] Release preview inference code and gradio demo
+- [x] Release preview inference code and gradio demo
 - [ ] Release training code 
 - [ ] Release Hugging Face demo
 
 ---
+
+## 💻 Getting Started
+For gradio demo running, please follow:
+- [Gradio Demo](./docs/readme_demo.md)
 
 ## 📚 Citation
 
@@ -137,6 +141,9 @@ For any questions or inquiries, please reach out to us:
 
 ---
 
+## 🙏 Acknowledgements
+
+We would like to express our gratitude to [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory.git) and [gradio_image_annotator](https://github.com/edgarGracia/gradio_image_annotator.git) for their valuable open-source contributions which have provided important technical references for our work.
 
 ## 🌤️ Discussion Group
 
@@ -159,3 +166,4 @@ If you have any questions during the trial, running or deployment, feel free to 
 <div align="center">
   <sub>🎨 Liberating Human Artistic Creativity, One Photo at a Time 🎨</sub>
 </div>
+
