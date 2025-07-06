@@ -126,7 +126,7 @@ Local Retouching Case
 
 ## 💻 Getting Started
 For gradio demo running, please follow:
-- [Gradio Demo](./docs/readme_demo.md)
+- [Gradio Demo](docs/README_Demo.md)
 
 ## 📚 Citation
 
