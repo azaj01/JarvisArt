@@ -8,6 +8,7 @@ This guide provides instructions on how to run the Gradio demo for JarvisArt.
 conda create -n jarvisart_demo python=3.11
 conda activate jarvisart_demo
 pip install -r envs/requirements_demo.txt
+git submodule update --init 
 cd src/sft
 pip install -e .
 cd ../../dependence/gradio_image_annotator
