@@ -8,6 +8,7 @@
   <a href="https://jarvisart.vercel.app/"><img src="https://img.shields.io/badge/Project%20Page-Visit-blue" alt="Project Page"></a>
   <a href="https://huggingface.co/spaces/LYL1015/JarvisArt-Preview"><img src="https://img.shields.io/badge/🤗-HF Demo-yellow.svg" alt="Hugging Face Demo"></a>
   <a href="https://www.youtube.com/watch?v=Ol28DQj8wV8"><img src="https://img.shields.io/badge/YouTube-Watch-red" alt="YouTube"></a>
+  <a href="https://www.bilibili.com/video/BV1Sd3nzREvP/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=3939804dc1d27869e194605ae46329ec"><img src="https://img.shields.io/badge/BiliBili-哔哩哔哩-FF69B4" alt="BiliBili"></a>
   <a href="https://x.com/ling_yunlong/status/1940010865627103419"><img src="https://img.shields.io/twitter/follow/LYL1015?style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/LYL1015/JarvisArt"><img src="https://img.shields.io/github/stars/LYL1015/JarvisArt?style=social" alt="GitHub Stars"></a>
   </div>
