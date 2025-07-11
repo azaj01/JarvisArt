@@ -1,0 +1,30 @@
+# Batch Inference Guide
+
+This guide provides instructions on how to run the batch inference for JarvisArt.
+
+## Environment Setup and Weights Download
+
+Please follow the environment setup instructions in the [Demo Guide](./README_Demo.md) to create the conda environment, install the necessary dependencies and download the preview weights. The same environment can be used for running the Batch Inference.
+
+## Running the Batch Inference
+Once the environment is set up and activated, you can run the batch inference with the following command from the root directory of the project:
+
+```bash
+# Firstly, start the API server
+API_PORT=8002 CUDA_VISIBLE_DEVICES=0 llamafactory-cli api src/inference/config/qwen2_vl.yaml 
+
+# Run the batch inference
+python inference.py --image_path /path/to/your/images
+```
+Replace `/path/to/your/images` with the path to the directory containing the images you want to process. The script will process all images in the specified directory.
+
+> **Note:**
+> - images dictorey structure should be like:
+>   ``` bash
+>   .
+>    |-- first_image
+>    |   |-- before.jpg
+>    |   `-- user_want.txt # This file contains the user's desired output description
+>    `-- second_image
+>   ```
+> - The script will save the output files in the same directory as the input images. The output files will be named `output_image.lrtemplate`.

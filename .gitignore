@@ -7,3 +7,7 @@ dist
 *log
 results
 checkpoints
+dataset
+.vscode
+.idea
+*.swp

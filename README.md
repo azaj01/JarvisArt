@@ -118,6 +118,9 @@ Local Retouching Case
 For gradio demo running, please follow:
 - [Gradio Demo](docs/README_Demo.md)
 
+For batch inference, please follow the instructions below:
+- [batch inference](docs/README_inference.md)
+
 ## 📚 Citation
 
 If you find JarvisArt useful in your research, please consider citing:
