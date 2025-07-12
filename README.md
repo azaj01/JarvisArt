@@ -65,6 +65,8 @@ Read it here: [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类�
 - [Checklist](#-checklist)
 - [Getting Started](#-getting-started)
 - [Discussion Group](#️-discussion-group)
+- [Citation](#-citation)
+
 ---
 
 
@@ -115,7 +117,9 @@ Local Retouching Case
 
 - [x] Create repo and project page
 - [x] Release preview inference code and gradio demo
-- [x] Release Hugging Face demo
+- [x] Release huggingface online demo
+- [x] Release preview model weight
+- [ ] Release MMArt dataset with open license
 - [ ] Release training code 
 
 ---
@@ -125,7 +129,7 @@ For gradio demo running, please follow:
 - [Gradio Demo](docs/README_Demo.md)
 
 For batch inference, please follow the instructions below:
-- [batch inference](docs/README_inference.md)
+- [batch inference](docs/README_Inference.md)
 
 ## 📚 Citation
 
