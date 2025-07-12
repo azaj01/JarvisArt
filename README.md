@@ -130,7 +130,7 @@ For gradio demo running, please follow:
 - [Gradio Demo](docs/README_Demo.md)
 
 For batch inference, please follow the instructions below:
-- [batch Inference](docs/README_Inference.md)
+- [Batch Inference](docs/README_Inference.md)
 
 ## 📚 Citation
 
