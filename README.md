@@ -7,6 +7,7 @@
   <a href="https://jarvisart.vercel.app/"><img src="https://img.shields.io/badge/Project%20Page-Visit-blue" alt="Project Page"></a>
   <a href="https://www.youtube.com/watch?v=Ol28DQj8wV8"><img src="https://img.shields.io/badge/YouTube-Watch-red" alt="YouTube"></a>
   <a href="https://www.bilibili.com/video/BV1Sd3nzREvP/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=3939804dc1d27869e194605ae46329ec"><img src="https://img.shields.io/badge/BiliBili-哔哩哔哩-FF69B4" alt="BiliBili"></a>
+
   <a href="https://huggingface.co/spaces/LYL1015/JarvisArt-Preview"><img src="https://img.shields.io/badge/🤗-HF Demo-yellow.svg" alt="Hugging Face Demo"></a>
   <a href="https://huggingface.co/papers/2506.17612"><img src="https://img.shields.io/badge/🤗-Daily%20Papers-ffbd00.svg" alt="Huggingface Daily Papers"></a>
   <a href="https://huggingface.co/JarvisArt/JarvisArt-Preview/tree/main/pretrained/preview"><img src="https://img.shields.io/badge/🤗-Model%20Weights-green.svg" alt="Model Weights"></a>
@@ -54,7 +55,7 @@ Read it here: [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类�
 - **[2025.6.28]** 🚀 Gradio demo and model weights are now available! Check out our [Gradio Demo](./docs/README_Demo.md) and [Model Weights](https://huggingface.co/JarvisArt/JarvisArt-Preview/tree/main/pretrained/preview).
 - **[2025.6.20]** 📄 Paper is now available on arXiv.
 - **[2025.6.16]** 🌐 Project page is live.
-- **[Coming Soon]** 🎯 Training code will be released.
+<!-- - **[Coming Soon]** 🎯 Training code will be released. -->
 ---
 
 
@@ -129,7 +130,7 @@ For gradio demo running, please follow:
 - [Gradio Demo](docs/README_Demo.md)
 
 For batch inference, please follow the instructions below:
-- [batch inference](docs/README_Inference.md)
+- [batch Inference](docs/README_Inference.md)
 
 ## 📚 Citation
 
