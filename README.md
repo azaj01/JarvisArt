@@ -48,7 +48,7 @@
 ## 📮 Updates
 
 - **[2025.7.12]** 🚀 Inference code is now available! Check out our [inference documentation](./docs/README_Inference.md).
-- **[2025.7.9]** 🙏 We're grateful to [@AK](https://x.com/_akhaliq) for helping promote [JarvisArt](https://x.com/_akhaliq/status/1942619100699640308) on Twitter!
+- **[2025.7.9]** 🙏 We're grateful to [@AK](https://x.com/_akhaliq) for featuring [JarvisArt](https://x.com/_akhaliq/status/1942619100699640308) on Twitter!
 - **[2025.7.4]** 📖 Our Chinese article providing a detailed introduction and technical walkthrough of Jar is now available!
 Read it here: [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类艺术创造力——用自然语言指挥200+专业工具](https://mp.weixin.qq.com/s/QAcF4nmjX8LK18Op9MzAsg).
 - **[2025.7.3]** 🤗 Hugging Face online demo is now available: [Try it here: **JarvisArt-Preview**](https://huggingface.co/spaces/LYL1015/JarvisArt-Preview).
@@ -155,7 +155,7 @@ For any questions or inquiries, please reach out to us:
 - **Yunlong Lin**: linyl@stu.xmu.edu.cn
 - **Zixu Lin**: a860620266@gmail.com
 - **Kunjie Lin**: linkunjie@stu.xmu.edu.cn  
-
+- **Panwang Pan**: paulpanwang@gmail.com  
 ---
 
 ## 🙏 Acknowledgements
