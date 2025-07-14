@@ -120,7 +120,7 @@ EOF
 
 # Retry loop
 echo "Testing API connection..."
-max_retries=5
+max_retries=20
 retry_count=0
 
 while [ $retry_count -lt $max_retries ]; do
@@ -149,7 +149,7 @@ while [ $retry_count -lt $max_retries ]; do
     
     if [ $retry_count -lt $max_retries ]; then
       echo "Waiting for model to be fully loaded... (Attempt $retry_count of $max_retries)"
-      sleep 2
+      sleep 3
     else
       echo "Maximum retries reached. API may not be functioning correctly."
       echo "⚠️ Continuing anyway, but the application might not work properly."
