@@ -47,7 +47,7 @@
 
 ## 📮 Updates
 
-- **[2025.7.12]** 🚀 Inference code is now available! Check out our [inference documentation](./docs/README_Inference.md).
+- **[2025.7.12]** 🚀 Inference code is now available! Check out our [Inference documentation](./docs/README_Inference.md).
 - **[2025.7.9]** 🙏 We're grateful to [@AK](https://x.com/_akhaliq) for featuring [JarvisArt](https://x.com/_akhaliq/status/1942619100699640308) on Twitter!
 - **[2025.7.4]** 📖 Our Chinese article providing a detailed introduction and technical walkthrough of Jar is now available!
 Read it here: [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类艺术创造力——用自然语言指挥200+专业工具](https://mp.weixin.qq.com/s/QAcF4nmjX8LK18Op9MzAsg).
@@ -117,7 +117,7 @@ Local Retouching Case
 ## 🎪 Checklist
 
 - [x] Create repo and project page
-- [x] Release preview inference code and gradio demo
+- [x] Release preview Inference code and gradio demo
 - [x] Release huggingface online demo
 - [x] Release preview model weight
 - [ ] Release MMArt dataset with open license
