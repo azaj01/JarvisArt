@@ -46,7 +46,7 @@
 
 
 ## 📮 Updates
-
+- **[2025.7.14]** 🙏 Thanks to [@pydemo](http://wgithub.com/pydemo) for writing a helpful tutorial: [Automate Your Lightroom Preset Creation with AI](https://medium.com/codex/automate-your-lightroom-preset-creation-with-ai-77e2da52f975).
 - **[2025.7.12]** 🚀 Inference code is now available! Check out our [Inference documentation](./docs/README_Inference.md).
 - **[2025.7.9]** 🙏 We're grateful to [@AK](https://x.com/_akhaliq) for featuring [JarvisArt](https://x.com/_akhaliq/status/1942619100699640308) on Twitter!
 - **[2025.7.4]** 📖 Our Chinese article providing a detailed introduction and technical walkthrough of Jar is now available!
