@@ -131,32 +131,10 @@ For gradio demo running, please follow:
 
 For batch inference, please follow the instructions below:
 - [Batch Inference](docs/README_Inference.md)
-
-## 📚 Citation
-
-If you find JarvisArt useful in your research, please consider citing:
-
-```bibtex
-@article{jarvisart2025,
-title={JarvisArt: Liberating Human Artistic Creativity via an Intelligent Photo Retouching Agent}, 
-      author={Yunlong Lin and Zixu Lin and Kunjie Lin and Jinbin Bai and Panwang Pan and Chenxin Li and Haoyu Chen and Zhongdao Wang and Xinghao Ding and Wenbo Li and Shuicheng Yan},
-      year={2025},
-      journal={arXiv preprint arXiv:2506.17612}
-}
-```
-
 ---
 
 
-## 📧 Contact
 
-For any questions or inquiries, please reach out to us:
-
-- **Yunlong Lin**: linyl@stu.xmu.edu.cn
-- **Zixu Lin**: a860620266@gmail.com
-- **Kunjie Lin**: linkunjie@stu.xmu.edu.cn  
-- **Panwang Pan**: paulpanwang@gmail.com  
----
 
 ## 🙏 Acknowledgements
 
@@ -172,9 +150,9 @@ If you have any questions during the trial, running or deployment, feel free to 
 </div>
 
 
----
+<!-- --- -->
 
-<p align="center">
+<!-- <p align="center">
   <a href="https://star-history.com/#LYL1015/JarvisArt&Date">
     <img src="https://api.star-history.com/svg?repos=LYL1015/JarvisArt&type=Date" alt="Star History Chart">
   </a>
@@ -182,5 +160,29 @@ If you have any questions during the trial, running or deployment, feel free to 
 
 <div align="center">
   <sub>🎨 Liberating Human Artistic Creativity, One Photo at a Time 🎨</sub>
-</div>
+</div> -->
+
+
+## 📧 Contact
+
+For any questions or inquiries, please reach out to us:
+
+- **Yunlong Lin**: linyl@stu.xmu.edu.cn
+- **Zixu Lin**: a860620266@gmail.com
+- **Kunjie Lin**: linkunjie@stu.xmu.edu.cn  
+- **Panwang Pan**: paulpanwang@gmail.com  
+---
+
+## 📚 Citation
+
+If you find JarvisArt useful in your research, please consider citing:
+
+```bibtex
+@article{jarvisart2025,
+title={JarvisArt: Liberating Human Artistic Creativity via an Intelligent Photo Retouching Agent}, 
+      author={Yunlong Lin and Zixu Lin and Kunjie Lin and Jinbin Bai and Panwang Pan and Chenxin Li and Haoyu Chen and Zhongdao Wang and Xinghao Ding and Wenbo Li and Shuicheng Yan},
+      year={2025},
+      journal={arXiv preprint arXiv:2506.17612}
+}
+```
 
