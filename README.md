@@ -65,6 +65,8 @@ Read it here: [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类�
 - [Demo Videos](#-demo-videos)
 - [Checklist](#-checklist)
 - [Getting Started](#-getting-started)
+  - [Gradio Demo](#-gradio-demo)
+  - [Batch Inference](#-batch-inference)
 - [Discussion Group](#️-discussion-group)
 - [Citation](#-citation)
 
