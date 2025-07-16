@@ -135,7 +135,10 @@ For batch inference, please follow the instructions below:
 - [Batch Inference](docs/README_Inference.md)
 ---
 
+## 🔍 Jarvis Family
+[JarvisIR](https://github.com/LYL1015/JarvisIR): An intelligent image restoration agent for diverse and complex degradations in real-world scenarios.
 
+We are excited to expand the Jarvis family with more intelligent agents in the future. Stay tuned for upcoming releases!
 
 
 ## 🙏 Acknowledgements
@@ -187,4 +190,3 @@ title={JarvisArt: Liberating Human Artistic Creativity via an Intelligent Photo 
       journal={arXiv preprint arXiv:2506.17612}
 }
 ```
-
