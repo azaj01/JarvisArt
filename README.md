@@ -49,8 +49,7 @@
 - **[2025.7.14]** 🙏 Thanks to [@pydemo](https://github.com/pydemo) for writing a helpful tutorial: [Automate Your Lightroom Preset Creation with AI](https://medium.com/codex/automate-your-lightroom-preset-creation-with-ai-77e2da52f975).
 - **[2025.7.12]** 🚀 Inference code is now available! Check out our [Inference documentation](./docs/README_Inference.md).
 - **[2025.7.9]** 🙏 We're grateful to [@AK](https://x.com/_akhaliq) for featuring [JarvisArt](https://x.com/_akhaliq/status/1942619100699640308) on Twitter!
-- **[2025.7.4]** 📖 Our Chinese article providing a detailed introduction and technical walkthrough of Jar is now available!
-Read it here: [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类艺术创造力——用自然语言指挥200+专业工具](https://mp.weixin.qq.com/s/QAcF4nmjX8LK18Op9MzAsg).
+- **[2025.7.4]** 📖 See our Chinese blog to get more details about JarvisArt! [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类艺术创造力——用自然语言指挥200+专业工具](https://mp.weixin.qq.com/s/QAcF4nmjX8LK18Op9MzAsg). 
 - **[2025.7.3]** 🤗 Hugging Face online demo is now available: [Try it here: **JarvisArt-Preview**](https://huggingface.co/spaces/LYL1015/JarvisArt-Preview).
 - **[2025.6.28]** 🚀 Gradio demo and model weights are now available! Check out our [Gradio Demo](./docs/README_Demo.md) and [Model Weights](https://huggingface.co/JarvisArt/JarvisArt-Preview).
 - **[2025.6.20]** 📄 Paper is now available on arXiv.
@@ -175,7 +174,8 @@ For any questions or inquiries, please reach out to us:
 - **Yunlong Lin**: linyl@stu.xmu.edu.cn
 - **Zixu Lin**: a860620266@gmail.com
 - **Kunjie Lin**: linkunjie@stu.xmu.edu.cn  
-- **Panwang Pan**: paulpanwang@gmail.com  
+- **Panwang Pan**: paulpanwang@gmail.com
+- **Chenxin Li**: chenxinli@link.cuhk.edu.hk
 ---
 
 ## 📚 Citation
