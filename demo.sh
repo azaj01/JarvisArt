@@ -98,7 +98,7 @@ api_key="0"
 # Construct JSON data
 json_data=$(cat <<EOF
 {
-  "model": "gpt",
+  "model": "qwen2_vl",
   "messages": [
     {
       "role": "system",
