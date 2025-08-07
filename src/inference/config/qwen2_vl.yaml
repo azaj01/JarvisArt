@@ -1,6 +1,6 @@
 model_name_or_path: ./checkpoints/pretrained/JarvisArt-preview/
 template: qwen2_vl
-infer_backend: huggingface  # choices: [huggingface, vllm]
+infer_backend: vllm  # choices: [huggingface, vllm]
 trust_remote_code: true
 # infer_backend: vllm
 vllm_enforce_eager: true
