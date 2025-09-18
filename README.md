@@ -1,7 +1,7 @@
 <div align="center">
   <img src="assets/logo.png" alt="JarvisArt Icon" width="100"/>
 
-  # [NeurIPS 2025] JarvisArt: Liberating Human Artistic Creativity via an Intelligent Photo Retouching Agent
+  # [NeurIPS' 2025] JarvisArt: Liberating Human Artistic Creativity via an Intelligent Photo Retouching Agent
   <!-- **JarvisArt: Liberating Human Artistic Creativity via an Intelligent Photo Retouching Agent** -->
   <a href="https://arxiv.org/pdf/2506.17612"><img src="https://img.shields.io/badge/arXiv-2506.17612-b31b1b.svg" alt="Paper"></a>
   <a href="https://jarvisart.vercel.app/"><img src="https://img.shields.io/badge/Project%20Page-Visit-blue" alt="Project Page"></a>
