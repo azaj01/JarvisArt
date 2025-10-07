@@ -8,6 +8,8 @@ import time
 import hashlib
 import base64
 from PIL import Image
+import requests
+from urllib.parse import urlparse
 
 from gradio_image_annotation import image_annotator
 
@@ -15,6 +17,68 @@ from werkzeug.utils import secure_filename  # Add this import
 from utils.system_prompt import SHORT_SYSTEM_PROMPT_WITH_THINKING
 from utils.lua_converter import LuaConverter
 from openai import OpenAI
+
+
+# =============================
+# Lightroom remote request utils
+# =============================
+def _is_local_server(url: str):
+    try:
+        parsed = urlparse(url)
+        hostname = (parsed.hostname or "").lower()
+        return hostname in ["localhost", "127.0.0.1", "::1"]
+    except Exception:
+        return False
+
+
+def _send_photo_request_local(photo_path: str, lua_path: str, url: str, timeout: int):
+    payload = {
+        "photo_path": photo_path,
+        "lua_path": lua_path,
+    }
+    return requests.post(url, json=payload, timeout=timeout)
+
+
+def _send_photo_request_remote(photo_path: str, lua_path: str, url: str, timeout: int):
+    files = {
+        "photo_file": (os.path.basename(photo_path), open(photo_path, "rb")),
+        "lua_file": (os.path.basename(lua_path), open(lua_path, "rb")),
+    }
+    data = {
+        "mode": "upload",
+        "photo_filename": os.path.basename(photo_path),
+        "lua_filename": os.path.basename(lua_path),
+    }
+    try:
+        return requests.post(url, files=files, data=data, timeout=timeout)
+    finally:
+        for file_tuple in files.values():
+            try:
+                file_tuple[1].close()
+            except Exception:
+                pass
+
+
+def send_lightroom_request(photo_path: str, lua_path: str, url: str, timeout: int = 60, remote_mode: bool | None = None):
+    if not url:
+        raise ValueError("Lightroom server URL is empty")
+    if not os.path.exists(photo_path):
+        raise FileNotFoundError(f"Photo not found: {photo_path}")
+    if not os.path.exists(lua_path):
+        raise FileNotFoundError(f"Lua file not found: {lua_path}")
+
+    mode_remote = remote_mode if remote_mode is not None else (not _is_local_server(url))
+    if not mode_remote:
+        resp = _send_photo_request_local(photo_path, lua_path, url, timeout)
+    else:
+        resp = _send_photo_request_remote(photo_path, lua_path, url, timeout)
+
+    try:
+        ok = 200 <= resp.status_code < 300
+        body = resp.json() if resp.headers.get("content-type", "").startswith("application/json") else resp.text
+        return ok, resp.status_code, body
+    except Exception:
+        return False, resp.status_code, resp.text
 
 def extract_json_from_answer(answer):
     """
@@ -391,6 +455,24 @@ def parse_args():
         action="store_true",
         help="Enable public sharing via Gradio tunnel (creates public URL)"
     )
+    parser.add_argument(
+        "--lr_url",
+        type=str,
+        default=os.environ.get("LR_SERVER_URL", "http://127.0.0.1:7777"),
+        help="Lightroom server URL (e.g., http://127.0.0.1:7777)"
+    )
+    parser.add_argument(
+        "--lr_timeout",
+        type=int,
+        default=int(os.environ.get("LR_SERVER_TIMEOUT", "60")),
+        help="Lightroom request timeout in seconds"
+    )
+    parser.add_argument(
+        "--lr_remote",
+        type=str,
+        default=os.environ.get("LR_REMOTE", "true"),
+        help="Remote upload mode (true/false). Default: true"
+    )
     return parser.parse_args()
 
 # Get command line arguments
@@ -593,6 +675,37 @@ def compact_text(text):
     text = re.sub(r' {2,}', ' ', text)
     return text
 
+
+def send_to_lightroom_now(chat_history, lr_url, lr_timeout, remote_mode, last_image_path, last_lua_path):
+    """Trigger Lightroom request manually from UI and append result to chat."""
+    chat_history = chat_history or []
+    if not last_image_path or not last_lua_path:
+        chat_history.append({
+            "role": "assistant",
+            "content": "<div style='margin:0;padding:0'>⚠️ <strong>No generated files</strong><br/>Please generate recommendations first to produce the Lua config and copied image.</div>"
+        })
+        return chat_history
+
+    try:
+        chat_history.append({
+            "role": "assistant",
+            "content": "<div style='margin:0;padding:0'>📤 <strong>Sending to Lightroom server...</strong></div>"
+        })
+        ok, status, body = send_lightroom_request(
+            last_image_path, last_lua_path, lr_url, int(lr_timeout) if lr_timeout else 60, bool(remote_mode)
+        )
+        if ok:
+            msg = f"<div style='margin:0;padding:0'>✅ <strong>Lightroom processed successfully</strong><br/><em>Status:</em> {status}<br/><em>Response:</em> {body}</div>"
+        else:
+            msg = f"<div style='margin:0;padding:0'>❌ <strong>Lightroom request failed</strong><br/><em>Status:</em> {status}<br/><em>Response:</em> {body}</div>"
+        chat_history.append({"role": "assistant", "content": msg})
+    except Exception as e:
+        chat_history.append({
+            "role": "assistant",
+            "content": f"<div style='margin:0;padding:0'>❌ <strong>Lightroom request error</strong><br/>{str(e)}</div>"
+        })
+    return chat_history
+
 def get_box_coordinates(annotated_image_dict, prompt_original):
     """
     Processes the output from the image_annotator to extract
@@ -617,7 +730,7 @@ def get_box_coordinates(annotated_image_dict, prompt_original):
         return str([xmin, ymin, xmax, ymax]), " In the region <box></box>, xxx"
     return "No box drawn", prompt_original
 
-def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, top_k, top_p, temperature):
+def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, top_k, top_p, temperature, lr_url, lr_timeout, remote_mode, auto_send):
     """
     Main analysis pipeline with streaming output, modern chat interface style, and image display support
     
@@ -630,13 +743,16 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
         temperature (float): Temperature for sampling
         
     Yields:
-        list: Updated chat_history for Gradio UI updates (messages format)
+        tuple: (chat_history, last_image_path, last_lua_path)
     """
+    # Track last paths for Lightroom request
+    last_image_path = ""
+    last_lua_path = ""
     if image_dict is None:
         yield [
             {"role": "user", "content": "Please upload an image first! 📸"},
             {"role": "assistant", "content": "I need an image to analyze before I can provide editing recommendations."}
-        ]
+        ], last_image_path, last_lua_path
         return
     image = image_dict['image']
     if not user_prompt.strip():
@@ -673,7 +789,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                 "role": "user",
                 "content": user_message_text
             })
-        yield chat_history
+        yield chat_history, last_image_path, last_lua_path
         
         # JarvisArt starts responding
         chat_history.append({
@@ -682,7 +798,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
         })
         ai_message_index = len(chat_history) - 1  # Record AI message index position
         recommendations_index = None  # Initialize recommendations message index
-        yield chat_history
+        yield chat_history, last_image_path, last_lua_path
         
         # Get streaming response
         full_response = ""
@@ -706,7 +822,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                     "role": "assistant",
                     "content": "💭 **Thinking Process**\n*Analyzing image characteristics and understanding your creative vision...*"
                 }
-                yield chat_history
+                yield chat_history, last_image_path, last_lua_path
                 continue
             
             # Thinking completed
@@ -723,7 +839,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                         "role": "assistant",
                         "content": formatted_thinking
                     }
-                    yield chat_history
+                    yield chat_history, last_image_path, last_lua_path
                 continue
             
             # Detect answer stage
@@ -736,7 +852,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                     "content": initial_recommendations
                 })
                 recommendations_index = len(chat_history) - 1  # Record recommendations message index
-                yield chat_history
+                yield chat_history, last_image_path, last_lua_path
                 continue
             
             # Answer completed
@@ -756,7 +872,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                         "role": "assistant",
                         "content": formatted_answer
                     }
-                    yield chat_history
+                    yield chat_history, last_image_path, last_lua_path
                 # Don't break here - continue to Final completion for JSON extraction
             
             # Real-time content updates (reduced frequency) - only if answer not completed
@@ -772,7 +888,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                             "role": "assistant",
                             "content": formatted_thinking
                         }
-                        yield chat_history
+                        yield chat_history, last_image_path, last_lua_path
                 
                 elif stage == "answer":
                     current_answer = full_response.split("<answer>")[-1].replace("</answer>", "").strip()
@@ -792,7 +908,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                                 "content": formatted_answer
                             })
                             recommendations_index = len(chat_history) - 1
-                        yield chat_history
+                        yield chat_history, last_image_path, last_lua_path
         
         # Final completion
         if stage == "completed":
@@ -816,7 +932,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                         "content": "<div style='margin:0;padding:0;margin-top:-20px'>⚙️ <strong style='margin:0;padding:0'>Lightroom Configuration Converting...</strong><br/><em>Converting editing parameters to Lightroom-compatible format...</em></div>"
                     })
                     conversion_index = len(chat_history) - 1
-                    yield chat_history
+                    yield chat_history, last_image_path, last_lua_path
                     
                     # Create lua_results folder in the same directory as this script
                     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -841,6 +957,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                     
                     image_dest_path = os.path.join(session_dir, unique_original_filename)
                     shutil.copy2(image, image_dest_path)
+                    last_image_path = image_dest_path
                     
                     # Save the full model response to a text file
                     response_file_path = os.path.join(session_dir, "full_response.txt")
@@ -860,6 +977,8 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                         if lua_path:
                             saved_files.append(lua_path)
                             print(f"✅ Saved Lua config: {lua_path}")
+                            if not last_lua_path:
+                                last_lua_path = lua_path
                         else:
                             print(f"❌ Failed to save Lua config {i+1}: {error}")
                     
@@ -892,6 +1011,31 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                                 "role": "assistant",
                                 "content": save_notification
                             }
+                        # Optionally send to Lightroom server automatically
+                        try:
+                            if auto_send and lr_url and last_image_path and last_lua_path:
+                                chat_history.append({
+                                    "role": "assistant",
+                                    "content": "<div style='margin:0;padding:0'>📤 <strong>Sending to Lightroom server...</strong></div>"
+                                })
+                                yield chat_history, last_image_path, last_lua_path
+                                ok, status, body = send_lightroom_request(
+                                    last_image_path,
+                                    last_lua_path,
+                                    lr_url,
+                                    int(lr_timeout) if lr_timeout else 60,
+                                    bool(remote_mode)
+                                )
+                                if ok:
+                                    result_msg = f"<div style='margin:0;padding:0'>✅ <strong>Lightroom processed successfully</strong><br/><em>Status:</em> {status}<br/><em>Response:</em> {body}</div>"
+                                else:
+                                    result_msg = f"<div style='margin:0;padding:0'>❌ <strong>Lightroom request failed</strong><br/><em>Status:</em> {status}<br/><em>Response:</em> {body}</div>"
+                                chat_history.append({"role": "assistant", "content": result_msg})
+                        except Exception as lr_err:
+                            chat_history.append({
+                                "role": "assistant",
+                                "content": f"<div style='margin:0;padding:0'>❌ <strong>Lightroom request error</strong><br/>{str(lr_err)}</div>"
+                            })
                     else:
                         # Show conversion failed message
                         if conversion_index is not None:
@@ -957,12 +1101,12 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
                         "content": "<div style='margin:0;padding:0;margin-top:-20px'>⚙️ <strong style='margin:0;padding:0'>Lightroom Configuration Converting...</strong><br/><em>Converting editing parameters to Lightroom-compatible format...</em></div>"
                     })
                     conversion_index = len(chat_history) - 1
-                    yield chat_history
+                    yield chat_history, last_image_path, last_lua_path
 
                     # Same processing logic... (omitting repetitive code here for brevity)
                     # [Continue processing logic, format as above]
 
-        yield chat_history
+        yield chat_history, last_image_path, last_lua_path
             
     except Exception as e:
         error_msg = f"❌ **Oops! Something went wrong**\n\n```\nError: {str(e)}\n```\n\n💡 **Try again with:**\n- A different image format\n- A simpler description\n- Refreshing the page"
@@ -970,7 +1114,7 @@ def process_analysis_pipeline_stream(image_dict, user_prompt, max_new_tokens, to
             {"role": "user", "content": "Image analysis request"},
             {"role": "assistant", "content": error_msg}
         ]
-        yield chat_history
+        yield chat_history, last_image_path, last_lua_path
 
 # Create Gradio interface
 def create_interface():
@@ -1620,6 +1764,13 @@ def create_interface():
         title="JarvisArt", 
         css=custom_css
     ) as demo:
+        # Session states for Lightroom request
+        last_image_state = gr.State("")
+        last_lua_state = gr.State("")
+        # Default remote mode from args
+        def _bool_env(s):
+            return str(s).lower() in ("1", "true", "yes", "on", "y")
+        default_remote_mode = _bool_env(args.lr_remote)
         
         # Header area
         with gr.Row(elem_classes="app-header"):
@@ -1808,6 +1959,33 @@ def create_interface():
                             variant="secondary",
                             size="sm"
                         )
+
+                # Lightroom remote request settings
+                with gr.Accordion("🖼️ Lightroom Server", open=False):
+                    with gr.Row():
+                        lr_url_text = gr.Textbox(
+                            label="Lightroom Server URL",
+                            value=args.lr_url,
+                            placeholder="http://127.0.0.1:7777",
+                        )
+                        lr_timeout_number = gr.Number(
+                            label="Timeout (s)",
+                            value=args.lr_timeout,
+                            minimum=1,
+                        )
+                    with gr.Row():
+                        remote_mode_checkbox = gr.Checkbox(
+                            label="Force remote mode (upload files)",
+                            value=default_remote_mode,
+                        )
+                        auto_send_checkbox = gr.Checkbox(
+                            label="Auto send to Lightroom after generation",
+                            value=False,
+                        )
+                        send_now_btn = gr.Button(
+                            "📤 Send to Lightroom now",
+                            variant="secondary",
+                        )
         
         # Quick examples
         with gr.Row():
@@ -1852,8 +2030,8 @@ def create_interface():
         # Main processing button - streaming output, pass all parameters
         process_btn.click(
             fn=process_analysis_pipeline_stream,
-            inputs=[input_image, user_prompt, max_new_tokens, top_k, top_p, temperature],
-            outputs=[chatbot]
+            inputs=[input_image, user_prompt, max_new_tokens, top_k, top_p, temperature, lr_url_text, lr_timeout_number, remote_mode_checkbox, auto_send_checkbox],
+            outputs=[chatbot, last_image_state, last_lua_state]
         )
         
         # Clear chat history
@@ -1865,7 +2043,14 @@ def create_interface():
         # Submit on Enter, pass all parameters
         user_prompt.submit(
             fn=process_analysis_pipeline_stream,
-            inputs=[input_image, user_prompt, max_new_tokens, top_k, top_p, temperature],
+            inputs=[input_image, user_prompt, max_new_tokens, top_k, top_p, temperature, lr_url_text, lr_timeout_number, remote_mode_checkbox, auto_send_checkbox],
+            outputs=[chatbot, last_image_state, last_lua_state]
+        )
+
+        # Manual Lightroom send
+        send_now_btn.click(
+            fn=send_to_lightroom_now,
+            inputs=[chatbot, lr_url_text, lr_timeout_number, remote_mode_checkbox, last_image_state, last_lua_state],
             outputs=[chatbot]
         )
         
@@ -1897,16 +2082,18 @@ def create_interface():
     return demo
 
 if __name__ == "__main__":
-    local_dict={}
-    print("="*60)
+    local_dict = {}
+    print("=" * 60)
     print("🎨 Starting JarvisArt Image Editing Recommendation Assistant")
-    print("="*60)
+    print("=" * 60)
     print("🔧 System Configuration Information:")
     print(f"   🤖 Model Name: {args.model_name}")
     print(f"   📍 API Endpoint: {args.api_endpoint}:{args.api_port}")
     print(f"   🌐 Web Interface: {args.server_name}:{args.server_port}")
+    print(f"   🖼️ Lightroom URL: {args.lr_url} (timeout={args.lr_timeout}s)")
+    print(f"   🚚 LR Remote Mode (upload): {str(args.lr_remote).lower()}")
     # print(f"   🚀 CUDA Device: {os.environ.get('CUDA_VISIBLE_DEVICES', 'Not Set')}")
-    print("="*60)
+    print("=" * 60)
 
     # Connection check tips
     print("🔍 Connection Check Tips:")
