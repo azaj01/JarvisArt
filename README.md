@@ -46,6 +46,7 @@
 
 
 ## 📮 Updates
+- **[2025.10.7]** 🔄 Agent-to-Lightroom Protocol is now available! Check out our [Agent-to-Lightroom Protocol documentation](./agent_to_lightroom/README.md) to enable seamless integration between AI agents and Adobe Lightroom.
 - **[2025.10.1]** 🤗 MMArt-PPR10k is now live on [Hugging Face Datasets](https://huggingface.co/datasets/JarvisArt/MMArt-PPR10k)! Built upon [@PPR10K](https://github.com/csjliang/PPR10K), this open-source dataset contains diverse user instructions, alongside Lightroom Lua/XMP files and corresponding original and edited images. It's released under the Apache 2.0 license.
 - **[2025.9.18]** 🎉 Congratulations! JarvisArt is accepted to NeurIPS 2025.
 - **[2025.7.14]** 🙏 Thanks to [@pydemo](https://github.com/pydemo) for writing a helpful tutorial: [Automate Your Lightroom Preset Creation with AI](https://medium.com/codex/automate-your-lightroom-preset-creation-with-ai-77e2da52f975).
@@ -68,6 +69,7 @@
 - [Getting Started](#-getting-started)
   - [Gradio Demo](./docs/README_Demo.md)
   - [Batch Inference](./docs/README_Inference.md)
+  - [Agent-to-Lightroom Protocol](./agent_to_lightroom/README.md)
 - [Discussion Group](#️-discussion-group)
 - [Citation](#-citation)
 
@@ -123,8 +125,11 @@ Local Retouching Case
 - [x] Release preview Inference code and gradio demo
 - [x] Release huggingface online demo
 - [x] Release preview model weight
-- [ ] Release MMArt dataset with open license
-- [ ] Release training code 
+- [x] Release Agent-to-Lightroom Protocol
+- [x] Release MMArt-PPR10K dataset with open license
+- [x] Release SFT training code 
+- [ ] Release GRPO-R training code 
+
 
 ---
 
@@ -134,6 +139,9 @@ For gradio demo running, please follow:
 
 For batch inference, please follow the instructions below:
 - [Batch Inference](docs/README_Inference.md)
+
+For Agent-to-Lightroom Protocol, please follow:
+- [Agent-to-Lightroom Protocol](agent_to_lightroom/README.md)
 ---
 
 ## 🔍 Jarvis Family
