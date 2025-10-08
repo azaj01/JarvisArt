@@ -200,3 +200,13 @@ title={JarvisArt: Liberating Human Artistic Creativity via an Intelligent Photo 
       journal={arXiv preprint arXiv:2506.17612}
 }
 ```
+
+---
+
+## 📜 License
+
+JarvisArt is released under the [Apache License 2.0](LICENSE), **but commercial use is explicitly prohibited**. While the Apache 2.0 license typically allows free use, modification, and distribution of code, for this project we specifically declare: commercial use of JarvisArt and its related code, models, and datasets is forbidden.
+
+Our MMArt-PPR10k dataset is also prohibited from commercial use. Any commercial application requires explicit written permission from the authors.
+
+For commercial cooperation or commercial licensing, please contact the project authors.
