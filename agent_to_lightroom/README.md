@@ -11,24 +11,36 @@ A Python API client for communicating with Adobe Lightroom via a custom plugin, 
 
 ## Quick Start
 
-1. Install the plugin to your Lightroom :
+### 1. Install the Plugin to Lightroom Classic
 
-   - open Lightroom Classic, click `File`-`Plug-in Manager`-`Add`
+#### Step 1: Access Plugin Manager
+Open Lightroom Classic and navigate to the Plugin Manager:
+- Click `File` → `Plug-in Manager...`
 
-   - choose   `XMPlayer.lrplugin/`  directory
+![Step 1: Access Plugin Manager](../assets/A2L_step1.png)
 
-2. Run the Python API server:
-   ```bash
-   python lightroom_api_server.py
-   ```
+#### Step 2: Add the Plugin
+In the Plugin Manager window:
+- Click the `Add` button (添加)
+- Browse and select the `XMPlayer.lrplugin/` directory from this project
+- Click `Done` (完成) to complete the installation
 
-3. Configure paths in `config/paths.yaml` according to your setup
+![Step 2: Add Plugin](../assets/A2L_step2.png)
 
-4. Send photo processing requests:
+The XMP Player plugin should now appear in your plugin list and be ready to use.
 
-   ```bash
-   python test_http.py
-   ```
+### 2. Run the Python API Server
+```bash
+python lightroom_api_server.py
+```
+
+### 3. Configure Paths
+Configure paths in `config/paths.yaml` according to your setup.
+
+### 4. Send Photo Processing Requests
+```bash
+python test_http.py
+```
 
 ## Configuration
 
