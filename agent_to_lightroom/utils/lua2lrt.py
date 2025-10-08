@@ -83,7 +83,7 @@ def cleanup_content(content):
     return content
 
 def reverse_map_temperature_tint(mapped_value, type='temperature'):
-    # 创建反向映射表
+    # Create reverse mapping tables
     temp_map = {
         2000: -100, 2500: -71, 3000: -49, 3500: -33, 4000: -20, 4500: -9, 5000: 0,
         5500: 8, 6000: 14, 6500: 20, 7000: 25, 7500: 30, 8000: 34, 8500: 38, 9000: 41,
@@ -96,31 +96,31 @@ def reverse_map_temperature_tint(mapped_value, type='temperature'):
         150: 100
     }
     
-    # 选择映射表并创建反向映射
+    # Select mapping table and create reverse mapping
     original_map = temp_map if type == 'temperature' else tint_map
     reverse_map = {v: k for k, v in original_map.items()}
     
-    # 如果输入值在反向映射表中，直接返回
+    # If input value exists in reverse mapping, return directly
     if mapped_value in reverse_map:
         return reverse_map[mapped_value]
     
-    # 找到最接近的两个值进行线性插值
+    # Find the two closest values for linear interpolation
     keys = sorted(reverse_map.keys())
     if mapped_value < keys[0]:
         return reverse_map[keys[0]]
     if mapped_value > keys[-1]:
         return reverse_map[keys[-1]]
     
-    # 找到最接近的两个值
+    # Find the two closest values
     for i in range(len(keys)-1):
         if keys[i] <= mapped_value <= keys[i+1]:
-            # 线性插值
+            # Linear interpolation
             x1, x2 = keys[i], keys[i+1]
             y1, y2 = reverse_map[x1], reverse_map[x2]
             return y1 + (y2 - y1) * (mapped_value - x1) / (x2 - x1)
 
 def transform_json_obj(json_obj):
-    # 把IncrementalTemperature和IncrementalTint转换为Temperature和Tint
+    # Convert IncrementalTemperature and IncrementalTint to Temperature and Tint
     if "WhiteBalance" in json_obj and json_obj["WhiteBalance"] == "Custom":
         if "IncrementalTemperature" in json_obj:
             incre_temperature = json_obj["IncrementalTemperature"]
