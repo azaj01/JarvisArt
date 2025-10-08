@@ -119,18 +119,6 @@ Local Retouching Case
   <p>JarvisArt supports multi-granularity retouching goals, ranging from scene-level adjustments to region-specific refinements. Users can perform intuitive, free-form edits through natural inputs such as text prompts and bounding boxes</p>
 </div>
 
-## 🎪 Checklist
-
-- [x] Create repo and project page
-- [x] Release preview Inference code and gradio demo
-- [x] Release huggingface online demo
-- [x] Release preview model weight
-- [x] Release Agent-to-Lightroom Protocol
-- [x] Release MMArt-PPR10K dataset with open license
-- [x] Release SFT training code 
-- [ ] Release GRPO-R training code 
-
-
 ---
 
 ## 💻 Getting Started
@@ -144,6 +132,18 @@ For Agent-to-Lightroom Protocol, please follow:
 - [Agent-to-Lightroom Protocol](agent_to_lightroom/README.md)
 ---
 
+## 🎪 Checklist
+
+- [x] Create repo and project page
+- [x] Release preview Inference code and gradio demo
+- [x] Release huggingface online demo
+- [x] Release preview model weight
+- [x] Release Agent-to-Lightroom Protocol
+- [x] Release MMArt-PPR10K dataset with open license
+- [x] Release SFT training code 
+- [ ] Release GRPO-R training code 
+
+---
 ## 🔍 Jarvis Family
 [JarvisIR](https://github.com/LYL1015/JarvisIR): An intelligent image restoration agent for diverse and complex degradations in real-world scenarios.
 
