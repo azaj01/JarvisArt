@@ -13,6 +13,7 @@ import yaml
 import logging
 import cgi
 from io import BytesIO
+from utils.xmp2lua import parse_xmp
 
 # Load configuration
 def load_config():
@@ -190,18 +191,32 @@ class PhotoProcessHandler(BaseHTTPRequestHandler):
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             data = json.loads(post_data.decode('utf-8'))
-            
+
             photo_path = data.get('photo_path')
-            lua_path = data.get('lua_path')
-            
-            if not photo_path or not lua_path:
+            preset_path = data.get('lua_path')  # Can be .lua or .xmp
+
+            if not photo_path or not preset_path:
                 self._send_error_response(400, "Missing photo_path or lua_path")
                 return
-            
-            print(f"Processing in local mode: {photo_path}, {lua_path}")
-            self.server.lightroom_api.process_photo(photo_path, lua_path)
+
+            # Check if preset is XMP and convert to Lua
+            if preset_path.lower().endswith('.xmp'):
+                print(f"Converting XMP to Lua: {preset_path}")
+                try:
+                    lua_table = parse_xmp(preset_path)
+                    lua_path = preset_path.replace('.xmp', '.lua')
+                    with open(lua_path, 'w', encoding='utf-8') as f:
+                        f.write('return ' + lua_table)
+                    print(f"Converted XMP to Lua: {lua_path}")
+                    preset_path = lua_path
+                except Exception as e:
+                    self._send_error_response(500, f"XMP conversion failed: {str(e)}")
+                    return
+
+            print(f"Processing in local mode: {photo_path}, {preset_path}")
+            self.server.lightroom_api.process_photo(photo_path, preset_path)
             self._send_success_response()
-            
+
         except json.JSONDecodeError:
             self._send_error_response(400, "Invalid JSON")
         except FileNotFoundError as e:
@@ -236,34 +251,34 @@ class PhotoProcessHandler(BaseHTTPRequestHandler):
             
             # Get uploaded files
             photo_file = form['photo_file']
-            lua_file = form['lua_file']
+            preset_file = form['lua_file']  # Can be .lua or .xmp
             photo_filename = form.getvalue('photo_filename')
-            lua_filename = form.getvalue('lua_filename')
-            
-            if not photo_file.file or not lua_file.file:
+            preset_filename = form.getvalue('lua_filename')  # Can be .lua or .xmp
+
+            if not photo_file.file or not preset_file.file:
                 self._send_error_response(400, "Missing files")
                 return
-            
+
             # Validate file extensions
             upload_config = config.get('upload', {})
             allowed_photo_ext = upload_config.get('allowed_photo_extensions', [])
             allowed_preset_ext = upload_config.get('allowed_preset_extensions', [])
             max_file_size = upload_config.get('max_file_size', 104857600)
-            
+
             photo_ext = os.path.splitext(photo_filename)[1].lower()
-            lua_ext = os.path.splitext(lua_filename)[1].lower()
-            
+            preset_ext = os.path.splitext(preset_filename)[1].lower()
+
             if photo_ext not in allowed_photo_ext:
                 # print(allowed_photo_ext)
                 # print(photo_ext)
                 self._send_error_response(400, f"Invalid photo file type: {photo_ext}")
                 return
-                
-            if lua_ext not in allowed_preset_ext:
-                self._send_error_response(400, f"Invalid preset file type: {lua_ext}")
+
+            if preset_ext not in allowed_preset_ext:
+                self._send_error_response(400, f"Invalid preset file type: {preset_ext}")
                 return
-            
-            print(f"Processing in remote mode: {photo_filename}, {lua_filename}")
+
+            print(f"Processing in remote mode: {photo_filename}, {preset_filename}")
             
             # Create upload directory
             upload_dir = upload_config.get('upload_dir', 'uploads')
@@ -283,8 +298,8 @@ class PhotoProcessHandler(BaseHTTPRequestHandler):
             
             # Save uploaded files to upload directory
             photo_temp_path = upload_subdir / photo_filename
-            lua_temp_path = upload_subdir / lua_filename
-            
+            preset_temp_path = upload_subdir / preset_filename
+
             # Write photo file with size check
             with open(photo_temp_path, 'wb') as f:
                 bytes_written = 0
@@ -297,30 +312,45 @@ class PhotoProcessHandler(BaseHTTPRequestHandler):
                         raise ValueError(f"Photo file too large. Max size: {max_file_size:,} bytes")
                     f.write(chunk)
             temp_files.append(photo_temp_path)
-            
-            # Write lua file with size check
-            with open(lua_temp_path, 'wb') as f:
+
+            # Write preset file with size check
+            with open(preset_temp_path, 'wb') as f:
                 bytes_written = 0
                 while True:
-                    chunk = lua_file.file.read(8192)
+                    chunk = preset_file.file.read(8192)
                     if not chunk:
                         break
                     bytes_written += len(chunk)
                     if bytes_written > max_file_size:
                         raise ValueError(f"Preset file too large. Max size: {max_file_size:,} bytes")
                     f.write(chunk)
-            temp_files.append(lua_temp_path)
-            
+            temp_files.append(preset_temp_path)
+
             print(f"Uploaded files saved to directory: {upload_subdir}")
             print(f"Photo: {photo_temp_path} ({os.path.getsize(str(photo_temp_path)):,} bytes)")
-            print(f"Lua: {lua_temp_path} ({os.path.getsize(str(lua_temp_path)):,} bytes)")
-            
+            print(f"Preset: {preset_temp_path} ({os.path.getsize(str(preset_temp_path)):,} bytes)")
+
+            # Check if preset is XMP and convert to Lua
+            if preset_ext == '.xmp':
+                print(f"Converting uploaded XMP to Lua: {preset_temp_path}")
+                try:
+                    lua_table = parse_xmp(str(preset_temp_path))
+                    lua_temp_path = upload_subdir / preset_filename.replace('.xmp', '.lua')
+                    with open(lua_temp_path, 'w', encoding='utf-8') as f:
+                        f.write('return ' + lua_table)
+                    temp_files.append(lua_temp_path)
+                    print(f"Converted XMP to Lua: {lua_temp_path}")
+                    preset_temp_path = lua_temp_path
+                except Exception as e:
+                    self._send_error_response(500, f"XMP conversion failed: {str(e)}")
+                    return
+
             # Process the files (same as local mode)
             # Convert to strings and normalize paths for Lightroom
             photo_path_str = str(photo_temp_path).replace('\\', '/')
-            lua_path_str = str(lua_temp_path).replace('\\', '/')
-            print(f"Processing in remote mode: {photo_path_str}, {lua_path_str}")
-            self.server.lightroom_api.process_photo(photo_path_str, lua_path_str)
+            preset_path_str = str(preset_temp_path).replace('\\', '/')
+            print(f"Processing in remote mode: {photo_path_str}, {preset_path_str}")
+            self.server.lightroom_api.process_photo(photo_path_str, preset_path_str)
             self._send_success_response()
             
         except KeyError as e:

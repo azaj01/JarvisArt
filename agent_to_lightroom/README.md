@@ -1,6 +1,6 @@
 # Agent-to-Lightroom Protocol
 
-A Python API client for communicating with Adobe Lightroom via a custom plugin, enabling automated photo processing through HTTP requests. Supports both local (file path) and remote (file upload) modes.
+A Python API client for communicating with Adobe Lightroom via a custom plugin, enabling automated photo processing through HTTP requests. Supports both local (file path) and remote (file upload) modes. **Now supports both Lua and XMP preset formats with automatic conversion.**
 
 ## Components
 
@@ -8,6 +8,7 @@ A Python API client for communicating with Adobe Lightroom via a custom plugin, 
 - **lightroom_api_server.py**: Python server that connects to the plugin and provides HTTP API
 - **test_http.py**: Client for sending photo processing requests (supports both local and remote modes)
 - **config/**: Configuration files in YAML format
+- **utils/xmp2lua.py**: XMP to Lua converter for automatic preset conversion
 
 ## Quick Start
 
@@ -63,3 +64,28 @@ The project uses YAML configuration files located in the `config/` directory:
 - Max total upload: 200MB
 - Supported photo formats: .jpg, .jpeg, .dng, .cr2, .nef, .tiff, .tif, .raw, .arw
 - Supported preset formats: .lua, .xmp
+
+## XMP Preset Support
+
+The system now supports XMP preset files in addition to Lua presets. When you provide an XMP file:
+
+1. **Automatic Conversion**: The server automatically converts XMP files to Lua format using the `utils/xmp2lua.py` converter
+2. **Transparent Operation**: No changes needed to your workflow - just provide the XMP file path or upload an XMP file
+3. **Works in Both Modes**:
+   - **Local mode**: Provide XMP file path in `lua_path` field, conversion happens automatically
+   - **Remote mode**: Upload XMP file as `lua_file`, conversion happens on the server
+
+### Example Usage with XMP
+
+**Local mode (JSON request):**
+```json
+{
+    "photo_path": "path/to/photo.dng",
+    "lua_path": "path/to/preset.xmp"
+}
+```
+
+**Remote mode (file upload):**
+Upload your XMP file as `lua_file` parameter - the server will handle the conversion automatically.
+
+The converted Lua file will be saved in the same directory as the XMP file (for local mode) or in the upload directory (for remote mode).
