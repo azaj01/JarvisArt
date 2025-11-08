@@ -140,7 +140,8 @@ For Agent-to-Lightroom Protocol, please follow:
 - [x] Release preview model weight
 - [x] Release Agent-to-Lightroom Protocol
 - [x] Release MMArt-PPR10K dataset with open license
-- [x] Release SFT training code 
+- [x] Release SFT training code
+- [ ] Release MMArt-Bench
 - [ ] Release GRPO-R training code 
 
 ---
