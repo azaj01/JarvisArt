@@ -31,7 +31,7 @@ bash run_recommendation.sh
 
 ```bash
 cd instructions_generation/
-python instructions_gen.py \
+python vllm_api_instructions_gen.py \
     --base_path /path/to/data \
     --start_id 0 \
     --end_id 100 \
