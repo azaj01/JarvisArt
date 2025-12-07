@@ -171,7 +171,7 @@ We are excited to expand the Jarvis family with more intelligent agents in the f
 
 ## 🙏 Acknowledgements
 
-We would like to express our gratitude to [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory.git) and [gradio_image_annotator](https://github.com/edgarGracia/gradio_image_annotator.git) for their valuable open-source contributions which have provided important technical references for our work.
+We would like to express our gratitude to [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory.git), [gradio_image_annotator](https://github.com/edgarGracia/gradio_image_annotator.git) and [VLM-R1](https://github.com/om-ai-lab/VLM-R1) for their valuable open-source contributions which have provided important technical references for our work.
 
 ## 🌤️ Discussion Group
 
