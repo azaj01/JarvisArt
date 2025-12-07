@@ -47,7 +47,8 @@
 
 
 ## 📮 Updates
-- **[2025.12.8]** The evaluation set [MMArt-Bench](https://huggingface.co/datasets/JarvisArt/MMArt-Bench) is now released!
+<!-- - **[2025.12.8]**  for the complete data generation pipeline. -->
+- **[2025.12.8]** The evaluation set [MMArt-Bench](https://huggingface.co/datasets/JarvisArt/MMArt-Bench) is now released! Data construction scripts are now released! Check out [Data Scripts](./data_scripts/README.md)
 - **[2025.12.7]** Training (SFT & GRPO-R) and Evaluation scripts are now released! Check out [Training Guide](./docs/README_Training.md) and [Evaluation](./docs/README_Evaluation.md).
 - **[2025.10.7]** Local client now supports Agent-to-Lightroom Protocol! See our [Agent-to-Lightroom Protocol documentation](./lrc_scripts/clients/agent_to_lightroom/README.md) for seamless AI agent integration with Adobe Lightroom.
 - **[2025.10.1]** MMArt-PPR10k is now live on [Hugging Face Datasets](https://huggingface.co/datasets/JarvisArt/MMArt-PPR10k)! Built upon [@PPR10K](https://github.com/csjliang/PPR10K), this open-source dataset contains diverse user instructions, alongside Lightroom Lua/XMP files and corresponding original and edited images. It's released under the Apache 2.0 license.
@@ -73,6 +74,7 @@
   - [Batch Inference](./docs/README_Inference.md)
   - [Agent-to-Lightroom Protocol](./agent_to_lightroom/README.md)
   - [Training Guide](./docs/README_Training.md)
+  - [Data Scripts](./data_scripts/README.md)
   - [Evaluation](./src/evaluation/README.md)
 - [Discussion Group](#️-discussion-group)
 - [Citation](#-citation)
@@ -138,6 +140,9 @@ For Agent-to-Lightroom Protocol, please follow:
 For training (SFT & GRPO-R), please follow:
 - [Training Guide](docs/README_Training.md)
 
+For data construction pipeline (image pairs, instructions, CoT generation & format conversion), please follow:
+- [Data Scripts](data_scripts/README.md)
+
 For evaluation, please follow:
 - [Evaluation](src/evaluation/README.md)
 
@@ -155,6 +160,7 @@ For evaluation, please follow:
 - [x] Release GRPO-R training code 
 - [x] Release evaluation code 
 - [x] Release MMArt-Bench
+- [x] Release data construction scripts
 
 ---
 ## 🔍 Jarvis Family
