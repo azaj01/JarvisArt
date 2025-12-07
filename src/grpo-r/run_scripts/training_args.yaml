@@ -1,0 +1,36 @@
+# Training arguments for LR model
+model_name_or_path: "/path/to/JarvisArt/"
+data_file_paths: "/path/to/data/grpo_dataset.json"
+resume_from_checkpoint: true
+is_reward_customized_from_vlm_module: false
+task_type: "rec"
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 4
+gradient_checkpointing: true
+logging_steps: 1
+num_train_epochs: 8
+bf16: true
+attn_implementation: "flash_attention_2"
+data_seed: 42
+save_steps: 20
+num_generations: 4
+max_completion_length: 4096
+reward_funcs: "format global_param_matching global_param_accuracy local_param_accuracy perception_quality_reward"
+beta: 0.04
+report_to: "tensorboard"
+
+# Lightroom configuration
+lightroom_server_host: "127.0.0.1"
+lightroom_server_port: 8081
+lightroom_upload_dir: "/path/to/lightroom/uploads"
+lightroom_results_dir: "/path/to/lightroom/results"
+lightroom_temp_dir: "/path/to/lightroom/lightroom_temp"
+lightroom_max_retries: 4
+lightroom_retry_delay: 5.0
+lightroom_backoff_factor: 2.0
+lightroom_single_request_timeout: 120.0
+lightroom_total_timeout: 600.0
+lightroom_file_wait_timeout: 180.0
+lightroom_max_concurrent_tasks: 4
+lightroom_debug: false
+lightroom_enable_fallback: true

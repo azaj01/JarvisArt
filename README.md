@@ -12,6 +12,7 @@
   <a href="https://huggingface.co/papers/2506.17612"><img src="https://img.shields.io/badge/🤗-Daily%20Papers-ffbd00.svg" alt="Huggingface Daily Papers"></a>
   <a href="https://huggingface.co/JarvisArt/JarvisArt-Preview"><img src="https://img.shields.io/badge/🤗-Model%20Weights-green.svg" alt="Model Weights"></a>
   <a href="https://huggingface.co/datasets/JarvisArt/MMArt-PPR10k"><img src="https://img.shields.io/badge/🤗-Dataset-blue.svg" alt="Dataset"></a>
+  <a href="https://huggingface.co/datasets/JarvisArt/MMArt-Bench"><img src="https://img.shields.io/badge/🤗-MMArt--Bench-blueviolet.svg" alt="MMArt-Bench"></a>
 
   <a href="https://x.com/ling_yunlong/status/1940010865627103419"><img src="https://img.shields.io/twitter/follow/LYL1015?style=social" alt="Twitter Follow"></a>
   <a href="https://github.com/LYL1015/JarvisArt"><img src="https://img.shields.io/github/stars/LYL1015/JarvisArt?style=social" alt="GitHub Stars"></a>
@@ -46,18 +47,19 @@
 
 
 ## 📮 Updates
-- **[2025.10.7]** 🔄 Agent-to-Lightroom Protocol is now available! Check out our [Agent-to-Lightroom Protocol documentation](./agent_to_lightroom/README.md) to enable seamless integration between AI agents and Adobe Lightroom.
-- **[2025.10.1]** 🤗 MMArt-PPR10k is now live on [Hugging Face Datasets](https://huggingface.co/datasets/JarvisArt/MMArt-PPR10k)! Built upon [@PPR10K](https://github.com/csjliang/PPR10K), this open-source dataset contains diverse user instructions, alongside Lightroom Lua/XMP files and corresponding original and edited images. It's released under the Apache 2.0 license.
-- **[2025.9.18]** 🎉 Congratulations! JarvisArt is accepted to NeurIPS 2025.
-- **[2025.7.14]** 🙏 Thanks to [@pydemo](https://github.com/pydemo) for writing a helpful tutorial: [Automate Your Lightroom Preset Creation with AI](https://medium.com/codex/automate-your-lightroom-preset-creation-with-ai-77e2da52f975).
-- **[2025.7.12]** 🚀 Inference code is now available! Check out our [Inference documentation](./docs/README_Inference.md).
-- **[2025.7.9]** 🙏 We're grateful to [@AK](https://x.com/_akhaliq) for featuring [JarvisArt](https://x.com/_akhaliq/status/1942619100699640308) on Twitter!
-- **[2025.7.4]** 📖 See our Chinese blog to get more details about JarvisArt! [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类艺术创造力——用自然语言指挥200+专业工具](https://mp.weixin.qq.com/s/QAcF4nmjX8LK18Op9MzAsg). 
-- **[2025.7.3]** 🤗 Hugging Face online demo is now available: [Try it here: **JarvisArt-Preview**](https://huggingface.co/spaces/LYL1015/JarvisArt-Preview).
-- **[2025.6.28]** 🚀 Gradio demo and model weights are now available! Check out our [Gradio Demo](./docs/README_Demo.md) and [Model Weights](https://huggingface.co/JarvisArt/JarvisArt-Preview).
-- **[2025.6.20]** 📄 Paper is now available on arXiv.
-- **[2025.6.16]** 🌐 Project page is live.
-<!-- - **[Coming Soon]** 🎯 Training code will be released. -->
+- **[2025.12.8]** The evaluation set [MMArt-Bench](https://huggingface.co/datasets/JarvisArt/MMArt-Bench) is now released!
+- **[2025.12.7]** Training (SFT & GRPO-R) and Evaluation scripts are now released! Check out [Training Guide](./docs/README_Training.md) and [Evaluation](./docs/README_Evaluation.md).
+- **[2025.10.7]** Local client now supports Agent-to-Lightroom Protocol! See our [Agent-to-Lightroom Protocol documentation](./lrc_scripts/clients/agent_to_lightroom/README.md) for seamless AI agent integration with Adobe Lightroom.
+- **[2025.10.1]** MMArt-PPR10k is now live on [Hugging Face Datasets](https://huggingface.co/datasets/JarvisArt/MMArt-PPR10k)! Built upon [@PPR10K](https://github.com/csjliang/PPR10K), this open-source dataset contains diverse user instructions, alongside Lightroom Lua/XMP files and corresponding original and edited images. It's released under the Apache 2.0 license.
+- **[2025.9.18]** Congratulations! JarvisArt is accepted to NeurIPS 2025.
+- **[2025.7.14]** Thanks to [@pydemo](https://github.com/pydemo) for writing a helpful tutorial: [Automate Your Lightroom Preset Creation with AI](https://medium.com/codex/automate-your-lightroom-preset-creation-with-ai-77e2da52f975).
+- **[2025.7.12]** Inference code is now available! Check out our [Inference documentation](./docs/README_Inference.md).
+- **[2025.7.9]** We're grateful to [@AK](https://x.com/_akhaliq) for featuring [JarvisArt](https://x.com/_akhaliq/status/1942619100699640308) on Twitter!
+- **[2025.7.4]** See our Chinese blog to get more details about JarvisArt! [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类艺术创造力——用自然语言指挥200+专业工具](https://mp.weixin.qq.com/s/QAcF4nmjX8LK18Op9MzAsg). 
+- **[2025.7.3]** Hugging Face online demo is now available: [Try it here: **JarvisArt-Preview**](https://huggingface.co/spaces/LYL1015/JarvisArt-Preview).
+- **[2025.6.28]** Gradio demo and model weights are now available! Check out our [Gradio Demo](./docs/README_Demo.md) and [Model Weights](https://huggingface.co/JarvisArt/JarvisArt-Preview).
+- **[2025.6.20]** Paper is now available on arXiv.
+- **[2025.6.16]** Project page is live.
 ---
 
 
@@ -70,6 +72,8 @@
   - [Gradio Demo](./docs/README_Demo.md)
   - [Batch Inference](./docs/README_Inference.md)
   - [Agent-to-Lightroom Protocol](./agent_to_lightroom/README.md)
+  - [Training Guide](./docs/README_Training.md)
+  - [Evaluation](./src/evaluation/README.md)
 - [Discussion Group](#️-discussion-group)
 - [Citation](#-citation)
 
@@ -130,6 +134,13 @@ For batch inference, please follow the instructions below:
 
 For Agent-to-Lightroom Protocol, please follow:
 - [Agent-to-Lightroom Protocol](agent_to_lightroom/README.md)
+
+For training (SFT & GRPO-R), please follow:
+- [Training Guide](docs/README_Training.md)
+
+For evaluation, please follow:
+- [Evaluation](src/evaluation/README.md)
+
 ---
 
 ## 🎪 Checklist
@@ -141,8 +152,9 @@ For Agent-to-Lightroom Protocol, please follow:
 - [x] Release Agent-to-Lightroom Protocol
 - [x] Release MMArt-PPR10K dataset with open license
 - [x] Release SFT training code
-- [ ] Release MMArt-Bench
-- [ ] Release GRPO-R training code 
+- [x] Release GRPO-R training code 
+- [x] Release evaluation code 
+- [x] Release MMArt-Bench
 
 ---
 ## 🔍 Jarvis Family

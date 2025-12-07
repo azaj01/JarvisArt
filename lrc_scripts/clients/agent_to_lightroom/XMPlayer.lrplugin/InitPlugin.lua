@@ -2,6 +2,7 @@ local LrSocket = import 'LrSocket'
 local LrTasks = import 'LrTasks'
 local LrFunctionContext = import 'LrFunctionContext'
 local LrApplication = import 'LrApplication'
+local LrDialogs = import 'LrDialogs'
 local LrLogger = import 'LrLogger'
 local LrPathUtils = import 'LrPathUtils'
 local LrFileUtils = import 'LrFileUtils'
@@ -11,22 +12,29 @@ local LrExportSession = import 'LrExportSession'
 local logger = LrLogger('XMPPlayer')
 logger:enable('logfile')
 
--- Global variables for server status tracking
+-- Global variable to track server status
 local SERVER_STATUS = {
     running = false,
     port = 7878,
     error = nil
 }
 
--- Process counter for monitoring
-local PROCESS_COUNT = 0
 
--- Constants
-local MAINTENANCE_THRESHOLD = 100
-local SERVER_CHECK_INTERVAL = 300
-local SLEEP_INTERVAL = 0.5
 
--- Path processing functions
+-- Add path processing functions
+local function getPathParts(path)
+    local parts = {}
+    local current = path
+    while current and current ~= "" do
+        local name = LrPathUtils.leafName(current)
+        if name then
+            table.insert(parts, 1, name)
+        end
+        current = LrPathUtils.parent(current)
+    end
+    return parts
+end
+
 local function getParentDir(path)
     return LrPathUtils.parent(path) or "."
 end
@@ -46,7 +54,7 @@ local function splitMessage(message)
     return result
 end
 
--- Lua settings file parser
+-- Add Lua settings file parsing function
 local function parseLuaSettingsFile(luaPath)
     logger:info("Loading settings from Lua file: " .. luaPath)
     
@@ -76,10 +84,10 @@ end
 
 -- Modified importPreset function
 local function importPreset(settingsPath)
-    -- Get filename as preset name
+    -- Get filename (as preset name)
     local presetName = LrPathUtils.removeExtension(LrPathUtils.leafName(settingsPath))
     if not presetName then
-        logger:error("Failed to get preset name from path: " .. tostring(settingsPath))
+        logger:error("Failed to get preset name from path: " .. settingsPath)
         return nil
     end
     
@@ -88,38 +96,25 @@ local function importPreset(settingsPath)
     if not settings then
         logger:error("Failed to parse settings file")
         return nil
-    end
-    
-    -- If white balance is "As Shot" or "Auto", remove temperature and tint settings
-    if settings.WhiteBalance == "As Shot" or settings.WhiteBalance == "Auto" then
-        settings.Temperature = nil
-        settings.Tint = nil
-        settings.IncrementalTemperature = nil
-        settings.IncrementalTint = nil
-    end
-    
+    end    
     return settings
 end
 
--- Validation helper functions
-local function validatePaths(photoPath, xmpPath)
-    if not photoPath or photoPath == "" then
-        return "error|Invalid photo path"
+local function tableToString(t, indent)
+    if not t then return "nil" end
+    
+    local result = {}
+    indent = indent or ""
+    
+    for k, v in pairs(t) do
+        if type(v) == "table" then
+            table.insert(result, indent .. k .. ":\n" .. tableToString(v, indent .. "  "))
+        else
+            table.insert(result, indent .. k .. " = " .. tostring(v))
+        end
     end
     
-    if not xmpPath or xmpPath == "" then
-        return "error|Invalid XMP path"
-    end
-    
-    if not LrFileUtils.exists(photoPath) then
-        return "error|Photo file does not exist"
-    end
-    
-    if not LrFileUtils.exists(xmpPath) then
-        return "error|XMP file does not exist"
-    end
-    
-    return nil -- No error
+    return table.concat(result, "\n")
 end
 
 local function handleRequest(message)
@@ -140,20 +135,31 @@ local function handleRequest(message)
     local command = parts[1]
     logger:info("Processing command: " .. command)
     
-    -- Handle ping requests
+    -- Handle ping request
     if command == "ping" then
         return "pong"
     end
     
-    -- Handle photo requests
+    -- Handle photo request
     if command == "process" and parts[2] and parts[3] then
         local photoPath = parts[2]
         local xmpPath = parts[3]
         
         -- Validate paths and file existence
-        local validationError = validatePaths(photoPath, xmpPath)
-        if validationError then
-            return validationError
+        if not photoPath or photoPath == "" then
+            return "error|Invalid photo path"
+        end
+        
+        if not xmpPath or xmpPath == "" then
+            return "error|Invalid XMP path"
+        end
+        
+        if not LrFileUtils.exists(photoPath) then
+            return "error|Photo file does not exist"
+        end
+        
+        if not LrFileUtils.exists(xmpPath) then
+            return "error|XMP file does not exist"
         end
         
         -- Prepare output path
@@ -181,12 +187,6 @@ local function handleRequest(message)
                 return
             end
             
-            -- Process counting and monitoring
-            PROCESS_COUNT = PROCESS_COUNT + 1
-            if PROCESS_COUNT % MAINTENANCE_THRESHOLD == 0 then
-                logger:info("Processed " .. PROCESS_COUNT .. " photos - consider catalog maintenance")
-            end
-            
             -- Find photo in write access context
             local photo = nil
             catalog:withWriteAccessDo("Find Photo", function()
@@ -196,16 +196,17 @@ local function handleRequest(message)
             
             if not photo then
                 logger:info("Photo not found in catalog, attempting to import...")
-                -- Use withWriteAccessDo to import photo
+                -- Use withProlongedWriteAccessDo to import photo
                 local success = catalog:withWriteAccessDo("Add Photo", function()
-                    local importedPhoto = catalog:addPhoto(photoPath)
-                    if importedPhoto then
-                        logger:info("Successfully imported photo")
-                        photo = importedPhoto
-                        logger:info("Imported photo path: " .. photo:getRawMetadata("path"))
-                        logger:info("Imported photo name: " .. photo:getFormattedMetadata("fileName"))
+                        local importedPhoto = catalog:addPhoto(photoPath)
+                        if importedPhoto then
+                            logger:info("Successfully imported photo")
+                            photo = importedPhoto
+                            logger:info("Imported photo path: " .. photo:getRawMetadata("path"))
+                            logger:info("Imported photo name: " .. photo:getFormattedMetadata("fileName"))
+                        end
                     end
-                end)
+                )
                 
                 if not success then
                     logger:error("Import operation was cancelled or failed")
@@ -220,17 +221,17 @@ local function handleRequest(message)
             
             -- Create export settings
             local exportSettings = {
-                LR_format = 'JPEG',
-                LR_jpeg_quality = 0.8,
+                LR_format = 'JPEG',  -- Export format as JPEG
+                LR_jpeg_quality = 0.8,  -- JPEG quality
                 LR_export_destinationType = 'specificFolder', 
                 LR_export_useSubfolder = true,
-                LR_export_destinationPathPrefix = outputDir,
+                LR_export_destinationPathPrefix = outputDir,  -- Output path
                 LR_export_destinationPathSuffix = "processed"
             }
             
 
-            -- Process photo in single transaction (minimize history)
-            catalog:withWriteAccessDo("Apply XMP", function()
+            -- Process photo in write access context
+            catalog:withWriteAccessDo("Process Photo", function()
                 -- Import and create preset
                 logger:info("Creating preset from XMP file: " .. xmpPath)
                 local preset = importPreset(xmpPath)
@@ -238,15 +239,22 @@ local function handleRequest(message)
                     logger:error("Failed to create preset")
                     return
                 end
-                -- Apply preset and AI settings in same transaction
+                -- Apply preset
+                logger:info("Applying preset: " )
                 photo:applyDevelopSettings(preset)
+            end)
+            
+            -- Update AI settings
+            catalog:withWriteAccessDo("Update AI Settings", function()
                 photo:updateAISettings()
-                logger:info("Applied XMP settings in single transaction")
             end)
 
-            -- Create export session
+            -- -- Execute export
+            -- logger:info("Starting export to: " .. outputPath)
+            
+            -- -- Create export session
             local exportSession = LrExportSession({
-                photosToExport = {photo},
+                photosToExport = {photo},  -- Single photo
                 exportSettings = exportSettings
             })
 
@@ -322,13 +330,13 @@ local function startServer()
                 
                 onError = function(socket, err)
                     SERVER_STATUS.error = err
-                    -- Timeout, restart listener
+                    -- Restart listening after timeout
                     if err == "timeout" then
                         logger:info("Server timeout, restarting listener...")
                         socket:reconnect()
                         return
                     end
-                    -- Other errors logged but no reconnect, keep server stable
+                    -- Log other errors but don't reconnect, keep server stable
                     logger:error("Non-timeout error occurred: " .. tostring(err))
                 end,
             })
@@ -343,20 +351,20 @@ local function startServer()
             SERVER_STATUS.running = true
                     
             while running do
-                LrTasks.sleep(SLEEP_INTERVAL) 
+                LrTasks.sleep(1/2) 
             end
         end)
     end)
 end
 
--- Modified server status check interval
+-- Modify server status check interval
 LrTasks.startAsyncTask(function()
     local function ensureServerRunning()
         if not SERVER_STATUS.running then
             startServer()
         end
         -- Increase check interval to 5 minutes
-        LrTasks.sleep(SERVER_CHECK_INTERVAL)
+        LrTasks.sleep(300)
         ensureServerRunning()
     end
     

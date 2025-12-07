@@ -5,7 +5,7 @@ A Python API client for communicating with Adobe Lightroom via a custom plugin, 
 ## Components
 
 - **XMPlayer.lrplugin/**: Lightroom plugin that creates a socket server
-- **lightroom_api_server.py**: Python server that connects to the plugin and provides HTTP API
+- **lrc_api_server.py**: Python server that connects to the plugin and provides HTTP API
 - **test_http.py**: Client for sending photo processing requests (supports both local and remote modes)
 - **config/**: Configuration files in YAML format
 - **utils/xmp2lua.py**: XMP to Lua converter for automatic preset conversion
@@ -32,7 +32,7 @@ The XMP Player plugin should now appear in your plugin list and be ready to use.
 
 ### 2. Run the Python API Server
 ```bash
-python lightroom_api_server.py
+python lrc_api_server.py
 ```
 
 ### 3. Configure Paths
