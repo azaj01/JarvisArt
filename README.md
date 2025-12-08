@@ -10,7 +10,7 @@
 
   <a href="https://huggingface.co/spaces/LYL1015/JarvisArt-Preview"><img src="https://img.shields.io/badge/🤗-HF Demo-yellow.svg" alt="Hugging Face Demo"></a>
   <a href="https://huggingface.co/papers/2506.17612"><img src="https://img.shields.io/badge/🤗-Daily%20Papers-ffbd00.svg" alt="Huggingface Daily Papers"></a>
-  <a href="https://huggingface.co/JarvisArt/JarvisArt-Preview"><img src="https://img.shields.io/badge/🤗-Model%20Weights-green.svg" alt="Model Weights"></a>
+  <a href="https://huggingface.co/JarvisArt/JarvisArt-1208"><img src="https://img.shields.io/badge/🤗-Model%20Weights-green.svg" alt="Model Weights"></a>
   <a href="https://huggingface.co/datasets/JarvisArt/MMArt-PPR10k"><img src="https://img.shields.io/badge/🤗-Dataset-blue.svg" alt="Dataset"></a>
   <a href="https://huggingface.co/datasets/JarvisArt/MMArt-Bench"><img src="https://img.shields.io/badge/🤗-MMArt--Bench-blueviolet.svg" alt="MMArt-Bench"></a>
 
@@ -58,7 +58,7 @@
 - **[2025.7.9]** We're grateful to [@AK](https://x.com/_akhaliq) for featuring [JarvisArt](https://x.com/_akhaliq/status/1942619100699640308) on Twitter!
 - **[2025.7.4]** See our Chinese blog to get more details about JarvisArt! [中文解读｜修图界ChatGPT诞生！JarvisArt：解放人类艺术创造力——用自然语言指挥200+专业工具](https://mp.weixin.qq.com/s/QAcF4nmjX8LK18Op9MzAsg). 
 - **[2025.7.3]** Hugging Face online demo is now available: [Try it here: **JarvisArt-Preview**](https://huggingface.co/spaces/LYL1015/JarvisArt-Preview).
-- **[2025.6.28]** Gradio demo and model weights are now available! Check out our [Gradio Demo](./docs/README_Demo.md) and [Model Weights](https://huggingface.co/JarvisArt/JarvisArt-Preview).
+- **[2025.6.28]** Gradio demo and model weights are now available! Check out our [Gradio Demo](./docs/README_Demo.md) and [Model Weights](https://huggingface.co/JarvisArt/JarvisArt-1208).
 - **[2025.6.20]** Paper is now available on arXiv.
 - **[2025.6.16]** Project page is live.
 ---

@@ -4,7 +4,7 @@ This guide provides instructions on how to run the batch inference for JarvisArt
 
 ## Environment Setup and Weights Download
 
-Please follow the environment setup instructions in the [Demo Guide](./README_Demo.md) to create the conda environment, install the necessary dependencies and download the preview weights. The same environment can be used for running the Batch Inference.
+Please follow the environment setup instructions in the [Demo Guide](./README_Demo.md) to create the conda environment, install the necessary dependencies and download the model weights. The same environment can be used for running the Batch Inference.
 
 ## Running the Batch Inference
 Once the environment is set up and activated, you can run the batch inference with the following command from the root directory of the project:

@@ -19,17 +19,17 @@ cd ../..
 
 > **Note:** Adobe Lightroom is a commercial product and may require a subscription or trial account.
 
-## Step 2: Download Preview Model Weights
+## Step 2: Download Model Weights
 
-To run the Gradio demo, you need to download the preview weights from Hugging Face and place them in the correct location:
+To run the Gradio demo, you need to download the model weights from Hugging Face and place them in the correct location:
 
-1. Download the JarvisArt preview weights from [Hugging Face repository](https://huggingface.co/JarvisArt/JarvisArt-Preview)
+1. Download the JarvisArt weights from [Hugging Face repository](https://huggingface.co/JarvisArt/JarvisArt-1208)
 2. Create the weights directory (if it doesn't exist):
    ```bash
    cd JarvisArt/
-   mkdir -p ./checkpoints/pretrained/JarvisArt-preview/
+   mkdir -p ./checkpoints/pretrained/JarvisArt/
    ```
-3. Place the downloaded weight files in the `./checkpoints/pretrained/JarvisArt-preview/` directory
+3. Place the downloaded weight files in the `./checkpoints/pretrained/JarvisArt/` directory
 4. If you've placed the model weights in a different location, remember to update the `model_name_or_path` parameter in `src/inference/config/qwen2_vl.yaml` to point to your custom model directory.
 
 
