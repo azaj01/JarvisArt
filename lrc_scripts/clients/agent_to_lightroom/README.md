@@ -18,7 +18,7 @@ A Python API client for communicating with Adobe Lightroom via a custom plugin, 
 Open Lightroom Classic and navigate to the Plugin Manager:
 - Click `File` → `Plug-in Manager...`
 
-![Step 1: Access Plugin Manager](../assets/A2L_step1.png)
+![Step 1: Access Plugin Manager](../../../assets/A2L_step1.png)
 
 #### Step 2: Add the Plugin
 In the Plugin Manager window:
@@ -26,7 +26,7 @@ In the Plugin Manager window:
 - Browse and select the `XMPlayer.lrplugin/` directory from this project
 - Click `Done` (完成) to complete the installation
 
-![Step 2: Add Plugin](../assets/A2L_step2.png)
+![Step 2: Add Plugin](../../../assets/A2L_step2.png)
 
 The XMP Player plugin should now appear in your plugin list and be ready to use.
 

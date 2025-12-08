@@ -50,7 +50,7 @@
 <!-- - **[2025.12.8]**  for the complete data generation pipeline. -->
 - **[2025.12.8]** The evaluation set [MMArt-Bench](https://huggingface.co/datasets/JarvisArt/MMArt-Bench) is now released! Data construction scripts are now released! Check out [Data Scripts](./data_scripts/README.md)
 - **[2025.12.7]** Training (SFT & GRPO-R) and Evaluation scripts are now released! Check out [Training Guide](./docs/README_Training.md) and [Evaluation](./docs/README_Evaluation.md).
-- **[2025.10.7]** Local client now supports Agent-to-Lightroom Protocol! See our [Agent-to-Lightroom Protocol documentation](./lrc_scripts/clients/agent_to_lightroom/README.md) for seamless AI agent integration with Adobe Lightroom.
+- **[2025.10.7]** Local client now supports Agent-to-Lightroom Protocol ! See our [Agent-to-Lightroom Protocol documentation](./lrc_scripts/clients/agent_to_lightroom/README.md) for seamless AI agent integration with Adobe Lightroom.
 - **[2025.10.1]** MMArt-PPR10k is now live on [Hugging Face Datasets](https://huggingface.co/datasets/JarvisArt/MMArt-PPR10k)! Built upon [@PPR10K](https://github.com/csjliang/PPR10K), this open-source dataset contains diverse user instructions, alongside Lightroom Lua/XMP files and corresponding original and edited images. It's released under the Apache 2.0 license.
 - **[2025.9.18]** Congratulations! JarvisArt is accepted to NeurIPS 2025.
 - **[2025.7.14]** Thanks to [@pydemo](https://github.com/pydemo) for writing a helpful tutorial: [Automate Your Lightroom Preset Creation with AI](https://medium.com/codex/automate-your-lightroom-preset-creation-with-ai-77e2da52f975).
