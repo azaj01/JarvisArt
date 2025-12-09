@@ -229,3 +229,10 @@ JarvisArt is released under the [Apache License 2.0](LICENSE), **but commercial 
 Our MMArt-PPR10k dataset is also prohibited from commercial use. Any commercial application requires explicit written permission from the authors.
 
 For commercial cooperation or commercial licensing, please contact the project authors.
+
+
+<p align="center">
+  <a href="https://star-history.com/#LYL1015/JarvisArt&Date">
+    <img src="https://api.star-history.com/svg?repos=LYL1015/JarvisArt&type=Date" alt="Star History Chart">
+  </a>
+</p>
