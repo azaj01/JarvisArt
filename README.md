@@ -72,10 +72,10 @@
 - [Getting Started](#-getting-started)
   - [Gradio Demo](./docs/README_Demo.md)
   - [Batch Inference](./docs/README_Inference.md)
-  - [Agent-to-Lightroom Protocol](./agent_to_lightroom/README.md)
+  - [Agent-to-Lightroom Protocol](./lrc_scripts/clients/agent_to_lightroom/README.md)
   - [Training Guide](./docs/README_Training.md)
   - [Data Scripts](./data_scripts/README.md)
-  - [Evaluation](./src/evaluation/README.md)
+  - [Evaluation](./docs/README_Evaluation.md)
 - [Discussion Group](#️-discussion-group)
 - [Citation](#-citation)
 
