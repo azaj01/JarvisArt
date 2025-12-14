@@ -144,7 +144,7 @@ For data construction pipeline (image pairs, instructions, CoT generation & form
 - [Data Scripts](data_scripts/README.md)
 
 For evaluation, please follow:
-- [Evaluation](src/evaluation/README.md)
+- [Evaluation](./docs/README_Evaluation.md)
 
 ---
 
