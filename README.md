@@ -187,7 +187,18 @@ We would like to express our gratitude to [LLaMA-Factory](https://github.com/hiy
 If you have any questions during the trial, running or deployment, feel free to join our WeChat group discussion! If you have any ideas or suggestions for the project, you are also welcome to join our WeChat group discussion!
 
 <div align="center">
-  <img src="assets/wechat_group.jpg" alt="WeChat Group" width="300px">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="assets/wechat_group0.jpg" alt="WeChat Group 1" width="300px">
+        <p>WeChat Group 1</p>
+      </td>
+      <td align="center">
+        <img src="assets/wechat_group.jpg" alt="WeChat Group 2" width="300px">
+        <p>WeChat Group 2</p>
+      </td>
+    </tr>
+  </table>
   <p>Scan QR code to join WeChat group discussion</p>
 </div>
 
