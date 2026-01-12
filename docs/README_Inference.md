@@ -2,16 +2,53 @@
 
 This guide provides instructions on how to run the batch inference for JarvisArt.
 
-## Environment Setup and Weights Download
+## Step 1: Installation
 
-Please follow the environment setup instructions in the [Demo Guide](./README_Demo.md) to create the conda environment, install the necessary dependencies and download the model weights. The same environment can be used for running the Batch Inference.
-
-## Running the Batch Inference
-Once the environment is set up and activated, you can run the batch inference with the following command from the root directory of the project:
+1. **Conda Environment:** Set up the conda environment with required dependencies before running the inference.
 
 ```bash
-# Firstly, start the API server
-API_PORT=8002 CUDA_VISIBLE_DEVICES=0 llamafactory-cli api src/inference/config/qwen2_vl.yaml 
+conda create -n jarvisart_infer python=3.11
+conda activate jarvisart_infer
+pip install -r envs/requirements_demo.txt
+```
+
+2. **Install Adobe Lightroom:** Please download and install Adobe Lightroom Classic on your local machine from the [official website](https://www.adobe.com/products/photoshop-lightroom.html). After installation, sign in using your Adobe account credentials.
+
+> **Note:** Adobe Lightroom Classic is a commercial product and may require a subscription or trial account.
+
+## Step 2: Download Model Weights
+
+To run the batch inference, you need to download the JarvisArt model weights from Hugging Face:
+
+1. Create the weights directory (if it doesn't exist):
+   ```bash
+   cd JarvisArt/
+   mkdir -p ./checkpoints/pretrained/JarvisArt-preview/
+   ```
+
+2. Download the JarvisArt weights from [Hugging Face repository](https://huggingface.co/JarvisArt/JarvisArt-1208):
+   ```bash
+   # Using huggingface-cli (recommended)
+   huggingface-cli download JarvisArt/JarvisArt-preview --local-dir ./checkpoints/pretrained/JarvisArt-preview
+   
+   # Or using git-lfs
+   git lfs install
+   git clone https://huggingface.co/JarvisArt/JarvisArt-preview ./checkpoints/pretrained/JarvisArt-preview
+   ```
+
+3. If you've placed the model weights in a different location, remember to update the `model_name_or_path` parameter in `src/inference/config/qwen2_vl.yaml` to point to your custom model directory.
+
+## Step 3: Start JarvisArt API Services
+
+First, start the JarvisArt API service on the server:
+
+```bash
+cd JarvisArt/
+API_PORT=8002 CUDA_VISIBLE_DEVICES=0 llamafactory-cli api src/inference/config/qwen2_vl.yaml
+```
+
+**Note:** This service needs to keep running. Please start it in a separate terminal window.
+
 
 # Run the batch inference
 python inference.py --image_path /path/to/your/images

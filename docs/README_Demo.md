@@ -57,7 +57,7 @@ This approach provides a seamless, fully automated workflow that directly applie
 
 **Setup Instructions:**
 
-Before using the one-click send to Lightroom feature, please install and start the Lightroom server by following the [Agent-to-Lightroom Protocol Guideline](../agent_to_lightroom/README.md).
+Before using the one-click send to Lightroom feature, please install and start the Lightroom server by following the [Agent-to-Lightroom Protocol Guideline](./lrc_scripts/clients/agent_to_lightroom/README.md).
 
 Once the Lightroom server is running, configure its URL in the demo UI under "Lightroom Server", or by command-line flags.
 
