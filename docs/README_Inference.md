@@ -9,6 +9,7 @@ This guide provides instructions on how to run the batch inference for JarvisArt
 ```bash
 conda create -n jarvisart_infer python=3.11
 conda activate jarvisart_infer
+conda install -c conda-forge ffmpeg=7 pkg-config -y
 pip install -r envs/requirements_demo.txt
 ```
 
