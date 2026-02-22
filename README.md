@@ -244,12 +244,11 @@ title={JarvisArt: Liberating Human Artistic Creativity via an Intelligent Photo 
 
 ## 📜 License
 
-JarvisArt is released under the [Apache License 2.0](LICENSE), **but commercial use is explicitly prohibited**. While the Apache 2.0 license typically allows free use, modification, and distribution of code, for this project we specifically declare: commercial use of JarvisArt and its related code, models, and datasets is forbidden.
+The **JarvisArt** model weights, inference code, and associated materials are made freely available by Yunlong Lin for academic research, personal study, and other non-commercial uses under the **JarvisArt Non-Commercial License**.
 
-Our MMArt-PPR10k dataset is also prohibited from commercial use. Any commercial application requires explicit written permission from the authors.
+By downloading, accessing, or using the JarvisArt model, you agree to the terms of this license. Please refer to the [`JarvisArt Non-Commercial License v1.0`](LICENSE) file in this repository for the full terms and conditions.
 
-For commercial cooperation or commercial licensing, please contact the project authors.
-
+**Commercial Use:** If you wish to use the JarvisArt model or its derivatives for commercial purposes, please contact me at [linyl@stu.xmu.edu.cn] to request a commercial license.
 
 <p align="center">
   <a href="https://star-history.com/#LYL1015/JarvisArt&Date">
