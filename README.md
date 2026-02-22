@@ -46,7 +46,7 @@
 <details open><summary>💡 Our new work that may interest you ✨. </summary><p>
 <!--  may -->
 
-> [**JarvisEvo: Towards a Self-Evolving Photo Editing Agent with Synergistic Editor-Evaluator Optimization**](https://arxiv.org/pdf/2511.23002) <br>
+> [**[CVPR' 2026] JarvisEvo: Towards a Self-Evolving Photo Editing Agent with Synergistic Editor-Evaluator Optimization**](https://arxiv.org/pdf/2511.23002) <br>
 > Yunlong Lin, Lingqing Wang, Zixu Lin and Kunjie Lin, etc. <br>
 [![github](https://img.shields.io/badge/-Github-black?logo=github)](https://github.com/LYL1015/JarvisEvo)  [![github](https://img.shields.io/github/stars/LYL1015/JarvisEvo.svg?style=social)](https://github.com/LYL1015/JarvisEvo) [![arXiv](https://img.shields.io/badge/Arxiv-2511.23002-b31b1b.svg?logo=arXiv)](https://arxiv.org/pdf/2511.23002) [![Project Page](https://img.shields.io/badge/Project%20Page-Visit-blue)](https://jarvisevo.vercel.app/) <br>
 > </p></details>
